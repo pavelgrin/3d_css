@@ -1,3 +1,4 @@
+import { transform3d, toCssMatrixView } from "./utils/math"
 import { Styles } from "./consts"
 
 const CUBE_FACES = ["front", "top", "bottom", "left", "right", "back"]
@@ -20,6 +21,8 @@ export class SmallCube {
         const faceElements = this.generateFaceElements()
 
         faceElements.forEach((element) => {
+            const matrix = transform3d.rotateZ(45)
+            element.style.transform = `matrix3d(${toCssMatrixView(matrix)})`
             this.cubeElement.appendChild(element)
         })
     }
