@@ -1,27 +1,57 @@
 import { transform3d, multiplyMatrix, toCssMatrixView } from "./utils/math"
-import { Styles } from "./consts"
+import { Style } from "./consts"
 
-const identityMatrix = transform3d.identityMatrix
+const CUBE_WIDTH = 100
+const FACE_OFFSET = CUBE_WIDTH / 2
 
 const CubeFaces = Object.freeze({
     Front: {
         name: "front",
-        pos: identityMatrix,
+        pos: transform3d.translate([0, 0, FACE_OFFSET]),
     },
     Top: {
         name: "top",
-        pos: "",
+        pos: multiplyMatrix(
+            transform3d.rotate(-90, [1, 0, 0]),
+            transform3d.translate([0, 0, FACE_OFFSET]),
+        ),
+    },
+    Bottom: {
+        name: "bottom",
+        pos: multiplyMatrix(
+            transform3d.rotate(90, [1, 0, 0]),
+            transform3d.translate([0, 0, FACE_OFFSET]),
+        ),
+    },
+    Left: {
+        name: "left",
+        pos: multiplyMatrix(
+            transform3d.rotate(90, [0, 1, 0]),
+            transform3d.translate([0, 0, FACE_OFFSET]),
+        ),
+    },
+    Right: {
+        name: "right",
+        pos: multiplyMatrix(
+            transform3d.rotate(-90, [0, 1, 0]),
+            transform3d.translate([0, 0, FACE_OFFSET]),
+        ),
+    },
+    Back: {
+        name: "back",
+        pos: multiplyMatrix(
+            transform3d.rotate(180, [0, 1, 0]),
+            transform3d.translate([0, 0, FACE_OFFSET]),
+        ),
     },
 })
-
-const CUBE_FACES = ["front", "top", "bottom", "left", "right", "back"]
 
 export class Cubelet {
     constructor(colors) {
         this.colors = colors
 
         this.cubeElement = document.createElement("div")
-        this.cubeElement.classList.add(Styles.Cubelet)
+        this.cubeElement.classList.add(Style.Cubelet)
 
         this.createCube()
     }
@@ -33,30 +63,26 @@ export class Cubelet {
     createCube() {
         const faceElements = this.generateFaceElements()
 
-        faceElements.forEach((element) => {
-            const matrix1 = transform3d.translate([200, 200, 0])
-            const matrix2 = transform3d.rotate(45, [0, 0, 1])
-
-            const matrix = multiplyMatrix(matrix1, matrix2)
-
-            element.style.transform = `matrix3d(${toCssMatrixView(matrix)})`
+        faceElements.forEach(({ element, pos }) => {
+            element.style.transform = `matrix3d(${toCssMatrixView(pos)})`
             this.cubeElement.appendChild(element)
         })
     }
 
     generateFaceElements() {
-        return CUBE_FACES.map((face) => (
-            this.createCubeFace(this.colors[face])
-        ))
+        return Object.keys(CubeFaces).map((face) => ({
+            element: this.createCubeFace(this.colors[CubeFaces[face].name]),
+            pos: CubeFaces[face].pos,
+        }))
     }
 
     createCubeFace(faceColor = "") {
         const underlay = document.createElement("div")
-        underlay.classList.add(Styles.Underlay)
+        underlay.classList.add(Style.Underlay)
     
         if (faceColor) {
             const cubeFace = document.createElement("div")
-            cubeFace.classList.add(Styles.CubeFace)
+            cubeFace.classList.add(Style.CubeFace)
     
             cubeFace.style.backgroundColor = faceColor
     
