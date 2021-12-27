@@ -1,5 +1,18 @@
-import { transform3d, toCssMatrixView } from "./utils/math"
+import { transform3d, multiplyMatrix, toCssMatrixView } from "./utils/math"
 import { Styles } from "./consts"
+
+const identityMatrix = transform3d.identityMatrix
+
+const CubeFaces = Object.freeze({
+    Front: {
+        name: "front",
+        pos: identityMatrix,
+    },
+    Top: {
+        name: "top",
+        pos: "",
+    },
+})
 
 const CUBE_FACES = ["front", "top", "bottom", "left", "right", "back"]
 
@@ -21,7 +34,11 @@ export class Cubelet {
         const faceElements = this.generateFaceElements()
 
         faceElements.forEach((element) => {
-            const matrix = transform3d.rotate(45, [0, 0, 1])
+            const matrix1 = transform3d.translate([200, 200, 0])
+            const matrix2 = transform3d.rotate(45, [0, 0, 1])
+
+            const matrix = multiplyMatrix(matrix1, matrix2)
+
             element.style.transform = `matrix3d(${toCssMatrixView(matrix)})`
             this.cubeElement.appendChild(element)
         })

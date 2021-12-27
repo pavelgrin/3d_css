@@ -9,33 +9,76 @@ export const normalizeVector = (vec) => {
     return vec.map((comp) => comp / vecLength)
 }
 
-export const toCssMatrixView = (matrix) => {
-    const cssMatrix = []
+export const transposeMatrix = (matrix) => {
+    const transposedMatrix = []
 
-    for (let i = 0; i < matrix.length; ++i) {
-        const row = matrix[i]
-        
-        for (let j = 0; j < row.length; ++j) {
-            const item = row[j]
-            
-            if (!cssMatrix[j]) {
-                cssMatrix[j] = []
+    const rowLength = matrix.length
+    const colLength = matrix[0].length
+    const length = Math.max(rowLength, colLength)
+
+    for (let row = 0; row < length; ++row) {
+        for (let col = row; col < length; ++col) {
+            if (!transposedMatrix[row]) {
+                transposedMatrix[row] = []
             }
 
-            cssMatrix[j].push(item)
+            if (!transposedMatrix[col]) {
+                transposedMatrix[col] = []
+            }
+
+            if (matrix[col]) {
+                transposedMatrix[row][col] = matrix[col][row]
+            }
+
+            if (matrix[row]) {
+                transposedMatrix[col][row] = matrix[row][col]
+            }
         }
     }
 
-    return cssMatrix.join(',')
+    return transposedMatrix
+}
+
+export const multiplyMatrix = (m1, m2) => {
+    return m1.map((row, i) => (
+        m2[0].map((_, j) => (
+            row.reduce((acc, _, n) => (
+                acc + m1[i][n] * m2[n][j]
+            ), 0)
+        ))
+    ))
+}
+
+export const toCssMatrixView = (matrix) => {
+    return transposeMatrix(matrix).join(',')
 }
 
 export const transform3d = Object.freeze({
-    translate(vec) {
-        return []
+    get identityMatrix() {
+        return [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1],
+        ]
     },
 
-    scale(vec) {
-        return []
+    translate([x, y, z]) {
+        return [
+            [1, 0, 0, x],
+            [0, 1, 0, y],
+            [0, 0, 1, z],
+            [0, 0, 0, 1],
+        ]
+    },
+
+    scale([x, y, z]) {
+        return [
+            [x, 0, 0, 0],
+            [0, y, 0, 0],
+            [0, 0, z, 0],
+            [0, 0, 0, 1],
+        ]
     },
 
     rotate(deg, vec) {
