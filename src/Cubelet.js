@@ -3,12 +3,12 @@ import { Styles } from "./consts"
 
 const CUBE_FACES = ["front", "top", "bottom", "left", "right", "back"]
 
-export class SmallCube {
+export class Cubelet {
     constructor(colors) {
         this.colors = colors
 
         this.cubeElement = document.createElement("div")
-        this.cubeElement.classList.add(Styles.Cube)
+        this.cubeElement.classList.add(Styles.Cubelet)
 
         this.createCube()
     }
@@ -21,7 +21,7 @@ export class SmallCube {
         const faceElements = this.generateFaceElements()
 
         faceElements.forEach((element) => {
-            const matrix = transform3d.rotateZ(45)
+            const matrix = transform3d.rotate(45, [0, 0, 1])
             element.style.transform = `matrix3d(${toCssMatrixView(matrix)})`
             this.cubeElement.appendChild(element)
         })
@@ -33,7 +33,7 @@ export class SmallCube {
         ))
     }
 
-    createCubeFace = (faceColor = "") => {
+    createCubeFace(faceColor = "") {
         const underlay = document.createElement("div")
         underlay.classList.add(Styles.Underlay)
     

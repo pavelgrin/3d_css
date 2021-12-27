@@ -1,10 +1,10 @@
 import { Styles } from "./consts"
 
-import { SmallCube } from "./SmallCube"
+import { Cubelet } from "./Cubelet"
 
 const rootElement = document.querySelector(`.${Styles.Root}`)
 
-const cube = new SmallCube({
+const cube = new Cubelet({
     front: "#009b48 ",
     top: "#ffffff",
     bottom: "#b71234",

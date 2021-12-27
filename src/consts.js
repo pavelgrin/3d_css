@@ -1,7 +1,7 @@
 export const Styles = Object.freeze({
     Root: "root",
     MagicCube: "magicCube",
-    Cube: "cube",
+    Cubelet: "cubelet",
     Underlay: "cubeFaceUnderlay",
     CubeFace: "cubeFace",
 })
