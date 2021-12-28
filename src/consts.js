@@ -26,3 +26,12 @@ export const CubeFace = Object.freeze({
     Right: "right",
     Back: "back",
 })
+
+export const ColorMapping = Object.freeze({
+    [CubeFace.Front]: FaceColor.Green,
+    [CubeFace.Top]: FaceColor.White,
+    [CubeFace.Bottom]: FaceColor.Red,
+    [CubeFace.Left]: FaceColor.Yellow,
+    [CubeFace.Right]: FaceColor.Blue,
+    [CubeFace.Back]: FaceColor.Orange,
+})

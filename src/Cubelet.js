@@ -25,9 +25,9 @@ export class Cubelet {
     }
 
     generateFaceElements() {
-        return CubeletSettings.map((face) => ({
-            element: this.createCubeFace(this.colors[face.name]),
-            pos: face.pos,
+        return CubeletSettings.map(({ name, pos }) => ({
+            element: this.createCubeFace(this.colors[name]),
+            pos,
         }))
     }
 

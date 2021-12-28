@@ -1,5 +1,4 @@
-// import { transform3d, multiplyMatrix, toCssMatrixView } from "./utils/math"
-import { Style, FaceColor, CubeFace } from "./consts"
+import { Style } from "./consts"
 import { MagicCubeSettings } from "./settings/magicCube"
 
 import { Cubelet } from "./Cubelet"
