@@ -1,10 +1,10 @@
-const path = require('path');
+const path = require("path")
 
 module.exports = {
-    mode: 'none',
-    entry: './src/main.js',
+    mode: "none",
+    entry: "./src/main.js",
     output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'public'),
+        filename: "main.js",
+        path: path.resolve(__dirname, "public"),
     },
-};
+}

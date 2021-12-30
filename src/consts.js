@@ -8,6 +8,9 @@ export const Style = Object.freeze({
     Cubelet: "cubelet",
     Underlay: "cubeFaceUnderlay",
     CubeFace: "cubeFace",
+    Meta: "meta",
+    Coordinates: "coordinates",
+    Fps: "fps",
 })
 
 export const FaceColor = Object.freeze({
