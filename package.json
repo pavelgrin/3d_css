@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
-  "name": "3d_css",
-  "description": "demo 3D scene using CSS",
+  "name": "magic_cube_3d",
+  "description": "demo of 3D scene with css",
   "author": "Pavel Grinevich",
   "license": "MIT",
   "scripts": {
