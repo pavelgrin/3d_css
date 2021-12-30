@@ -53,6 +53,13 @@ export const toCssMatrixView = (matrix) => {
     return transposeMatrix(matrix).join(',')
 }
 
+export const getPerspectiveDistance = (fovDeg, screenHeight) => {
+    const fovRad = toRadians(fovDeg)
+    const viewerToScreenDistance = screenHeight / 2 / Math.tan(fovRad / 2)
+
+    return viewerToScreenDistance
+}
+
 export const transform3d = Object.freeze({
     get identityMatrix() {
         return [
@@ -60,6 +67,21 @@ export const transform3d = Object.freeze({
             [0, 1, 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 1],
+        ]
+    },
+
+    lookAt(vecPos, vecTarget, vecUp) {
+        return this.identityMatrix
+    },
+
+    perspective(fovDeg, screenHeight) {
+        const d = getPerspectiveDistance(fovDeg, screenHeight)
+
+        return [
+            [1, 0,    0, 0],
+            [0, 1,    0, 0],
+            [0, 0,    1, 0],
+            [0, 0, -1/d, 1],
         ]
     },
 
