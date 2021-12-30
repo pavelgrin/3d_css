@@ -1,4 +1,5 @@
-import { transform3d, multiplyMatrix, toCssMatrixView } from "../utils/math"
+import { transform3d, multiplyMatrix } from "../utils/math"
+import { toCssMatrixView } from "../utils/render"
 import { CUBE_WIDTH, CubeFace } from "../consts"
 
 const FACE_OFFSET = CUBE_WIDTH / 2

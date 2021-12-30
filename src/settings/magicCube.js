@@ -1,4 +1,6 @@
-import { transform3d, multiplyMatrix, toCssMatrixView } from "../utils/math"
+import { transform3d, multiplyMatrix } from "../utils/math"
+import { toCssMatrixView } from "../utils/render"
+
 import {
     CUBE_WIDTH,
     MAGIC_CUBE_WIDTH,

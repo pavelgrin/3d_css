@@ -62,10 +62,6 @@ export const multiplyMatrix = (m1, m2) => {
     ))
 }
 
-export const toCssMatrixView = (matrix) => {
-    return transposeMatrix(matrix).join(',')
-}
-
 export const getPerspectiveDistance = (fovDeg, screenHeight) => {
     const fovRad = toRadians(fovDeg)
     const viewerToScreenDistance = screenHeight / 2 / Math.tan(fovRad / 2)
@@ -105,7 +101,7 @@ export const transform3d = Object.freeze({
             ],
             [
                 [1, 0, 0, -Px],
-                [0, 1, 0, -Py],
+                [0, 1, 0,  Py],
                 [0, 0, 1, -Pz],
                 [0, 0, 0,   1],
             ]

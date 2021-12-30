@@ -1,9 +1,5 @@
-import {
-    transform3d,
-    multiplyMatrix,
-    toCssMatrixView,
-    getPerspectiveDistance
-} from "./utils/math"
+import { transform3d, multiplyMatrix, getPerspectiveDistance } from "./utils/math"
+import { spawnObject, transformObject} from "./utils/render"
 
 import { Style } from "./consts"
 
@@ -13,11 +9,24 @@ const rootElement = document.querySelector(`.${Style.Root}`)
 const screenHeight = rootElement.offsetHeight
 rootElement.style.perspective = `${getPerspectiveDistance(45, screenHeight)}px`
 
-const magicCube1 = new MagicCube()
-const magicCube2 = new MagicCube()
+const magicCube1 = spawnObject(new MagicCube())
+const magicCube2 = spawnObject(new MagicCube())
+const magicCube3 = spawnObject(new MagicCube())
 
-rootElement.appendChild(magicCube1.element)
-rootElement.appendChild(magicCube2.element)
+const cube1Pos = multiplyMatrix(
+    transform3d.translate([300, 0, 0]),
+    transform3d.rotate(45, [1, 1, 0]),
+)
+
+const cube2Pos = multiplyMatrix(
+    transform3d.translate([-300, 0, 0]),
+    transform3d.rotate(45, [1, 0, 1]),
+)
+
+const cube3Pos = multiplyMatrix(
+    transform3d.translate([0, 400, 0]),
+    transform3d.rotate(45, [0, 1, 1]),
+)
 
 const radius = 1000
 
@@ -25,31 +34,11 @@ const cb = () => {
     const camX = Math.sin(Date.now() / 1000) * radius;
     const camZ = Math.cos(Date.now() / 1000) * radius;
 
-    const modelMatrix1 = multiplyMatrix(
-        transform3d.translate([0, 0, 0]),
-        transform3d.rotate(0, [0, 1, 0]),
-    )
+    const view =  transform3d.lookAt([camX, 0, camZ], [0, 0, 0], [0, 1, 0])
 
-    const viewMatrix1 = multiplyMatrix(
-        transform3d.lookAt([camX, 0, camZ], [0, 0, 0], [0, 1, 0]),
-        modelMatrix1,
-    )
-
-    magicCube1.element.style.transform = `matrix3d(${toCssMatrixView(viewMatrix1)})`
-
-    //////////////////////////
-
-    const modelMatrix2 = multiplyMatrix(
-        transform3d.translate([500, 0, -500]),
-        transform3d.rotate(0, [0, 1, 0]),
-    )
-
-    const viewMatrix2 = multiplyMatrix(
-        transform3d.lookAt([camX, 0, camZ], [0, 0, 0], [0, 1, 0]),
-        modelMatrix2,
-    )
-
-    magicCube2.element.style.transform = `matrix3d(${toCssMatrixView(viewMatrix2)}`
+    transformObject(magicCube1, multiplyMatrix(view, cube1Pos))
+    transformObject(magicCube2, multiplyMatrix(view, cube2Pos))
+    transformObject(magicCube3, multiplyMatrix(view, cube3Pos))
 
     requestAnimationFrame(cb)
 }

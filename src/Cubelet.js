@@ -43,7 +43,7 @@ export class Cubelet {
     
             underlay.appendChild(cubeFace)
         }
-    
+
         return underlay
     }
 }

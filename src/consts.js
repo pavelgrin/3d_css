@@ -3,6 +3,7 @@ export const MAGIC_CUBE_WIDTH = 300
 
 export const Style = Object.freeze({
     Root: "root",
+    SpawnPoint: "spawnPoint",
     MagicCube: "magicCube",
     Cubelet: "cubelet",
     Underlay: "cubeFaceUnderlay",

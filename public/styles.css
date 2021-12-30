@@ -25,6 +25,12 @@ body {
     height: 100%;
 }
 
+.spawnPoint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
 .cubeFaceUnderlay {
     position: absolute;
     top: 0;
