@@ -19,19 +19,19 @@ export const CubeletSettings = Object.freeze([
     },
     {
         name: CubeFace.Top,
-        pos: getFacePosition(-90, [1, 0, 0]),
-    },
-    {
-        name: CubeFace.Bottom,
         pos: getFacePosition(90, [1, 0, 0]),
     },
     {
+        name: CubeFace.Bottom,
+        pos: getFacePosition(-90, [1, 0, 0]),
+    },
+    {
         name: CubeFace.Left,
-        pos: getFacePosition(90, [0, 1, 0]),
+        pos: getFacePosition(-90, [0, 1, 0]),
     },
     {
         name: CubeFace.Right,
-        pos: getFacePosition(-90, [0, 1, 0]),
+        pos: getFacePosition(90, [0, 1, 0]),
     },
     {
         name: CubeFace.Back,

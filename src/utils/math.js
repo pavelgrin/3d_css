@@ -9,6 +9,19 @@ export const normalizeVector = (vec) => {
     return vec.map((comp) => comp / vecLength)
 }
 
+export const sumVector = (vec1, vec2) => {
+    const resVec = vec1.length >= vec2.length ? vec1 : vec2
+    return resVec.map((comp, idx) => comp + (vec2[idx] || 0))
+}
+
+export const crossVector = ([x1, y1, z1], [x2, y2, z2]) => {
+    return [y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2]
+}
+
+export const multiplyVectorByScalar = (vec, value) => {
+    return vec.map((comp) => comp * value)
+}
+
 export const transposeMatrix = (matrix) => {
     const transposedMatrix = []
 
@@ -70,8 +83,33 @@ export const transform3d = Object.freeze({
         ]
     },
 
-    lookAt(vecPos, vecTarget, vecUp) {
-        return this.identityMatrix
+    lookAt(cameraPos, vecTarget, vecUp) {
+        const invVecTarget = multiplyVectorByScalar(vecTarget, -1)
+
+        const cameraDirection = normalizeVector(sumVector(cameraPos, invVecTarget))
+        const rightCameraVec = normalizeVector(crossVector(vecUp, cameraDirection))
+        const upCameraVec = normalizeVector(crossVector(cameraDirection, rightCameraVec))
+
+        const [Rx, Ry, Rz] = rightCameraVec
+        const [Ux, Uy, Uz] = upCameraVec
+        const [Dx, Dy, Dz] = cameraDirection
+
+        const [Px, Py, Pz] = cameraPos
+
+        return multiplyMatrix(
+            [
+                [Rx, Ry, Rz, 0],
+                [Ux, Uy, Uz, 0],
+                [Dx, Dy, Dz, 0],
+                [ 0,  0,  0, 1],
+            ],
+            [
+                [1, 0, 0, -Px],
+                [0, 1, 0, -Py],
+                [0, 0, 1, -Pz],
+                [0, 0, 0,   1],
+            ]
+        )
     },
 
     perspective(fovDeg, screenHeight) {
@@ -87,10 +125,10 @@ export const transform3d = Object.freeze({
 
     translate([x, y, z]) {
         return [
-            [1, 0, 0, x],
-            [0, 1, 0, y],
-            [0, 0, 1, z],
-            [0, 0, 0, 1],
+            [1, 0, 0,  x],
+            [0, 1, 0, -y],
+            [0, 0, 1,  z],
+            [0, 0, 0,  1],
         ]
     },
 
@@ -109,7 +147,8 @@ export const transform3d = Object.freeze({
         const s = Math.sin(rad)
         const c = Math.cos(rad)
 
-        const [x, y, z] = normalizeVector(vec)
+        const [x, invY, z] = normalizeVector(vec)
+        const y = -invY
 
         return [
             [   c+(1-c)*x*x, -s*z+(1-c)*x*y,  s*y+(1-c)*x*z, 0],
