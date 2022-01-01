@@ -1,5 +1,6 @@
 export const CUBE_WIDTH = 100
 export const MAGIC_CUBE_WIDTH = 300
+export const AVERAGE_FPS_COUNT = 10
 
 export const Style = Object.freeze({
     Root: "root",

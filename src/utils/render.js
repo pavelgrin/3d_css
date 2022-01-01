@@ -1,14 +1,5 @@
-import { Style } from "../consts"
+import { Style, AVERAGE_FPS_COUNT } from "../consts"
 import { transposeMatrix } from "./math"
-
-const AVERAGE_FPS_COUNT = 10
-
-const fpsState = {
-    counter: 0,
-    fpsStorage: 0,
-    prevTime: null,
-    fps: "--",
-}
 
 // spawnPoint is needed to bind objects to the center of the view
 const spawnPoint = document.querySelector(`.${Style.SpawnPoint}`)
@@ -30,26 +21,40 @@ export const transformObject = (object, matrix) => {
     return object
 }
 
-export const getFps = () => {
+export const getFrameTime = () => {
+    if (!getFrameTime.prevTime) {
+        getFrameTime.prevTime = Date.now()
+        return 0
+    }
+
     const currentTime = Date.now()
+    const frameTime = currentTime - getFrameTime.prevTime
+    getFrameTime.prevTime = currentTime
 
-    if (!fpsState.prevTime) {
-        fpsState.prevTime = currentTime
-        return fpsState.fps
+    return frameTime
+}
+
+export const getFps = (frameTime) => {
+    if (!getFps.state) {
+        getFps.state = {
+            counter: 0,
+            fpsStorage: 0,
+            fps: "--",
+        }
     }
 
-    if (fpsState.counter < AVERAGE_FPS_COUNT) {
-        fpsState.fpsStorage += currentTime - fpsState.prevTime
-        fpsState.prevTime = currentTime
-        fpsState.counter += 1
+    if (getFps.state.counter < AVERAGE_FPS_COUNT) {
+        getFps.state.fpsStorage += frameTime
+        getFps.state.counter += 1
 
-        return fpsState.fps
+        return getFps.state.fps
     }
-    
-    fpsState.fps = Math.floor(1000 / (fpsState.fpsStorage / AVERAGE_FPS_COUNT))
-    
-    fpsState.counter = 0
-    fpsState.fpsStorage = 0
 
-    return fpsState.fps
+    const averageFrameTime = getFps.state.fpsStorage / AVERAGE_FPS_COUNT
+    getFps.state.fps = Math.floor(1000 / averageFrameTime)
+
+    getFps.state.counter = 0
+    getFps.state.fpsStorage = 0
+
+    return getFps.state.fps
 }

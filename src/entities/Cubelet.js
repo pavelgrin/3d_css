@@ -1,5 +1,5 @@
-import { Style } from "./consts"
-import { CubeletSettings } from "./settings/cubelet"
+import { Style } from "../consts"
+import { CubeletSettings } from "../settings/cubelet"
 
 export class Cubelet {
     constructor(colors) {

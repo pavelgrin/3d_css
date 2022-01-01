@@ -1,5 +1,5 @@
-import { Style } from "./consts"
-import { MagicCubeSettings } from "./settings/magicCube"
+import { Style } from "../consts"
+import { MagicCubeSettings } from "../settings/magicCube"
 
 import { Cubelet } from "./Cubelet"
 

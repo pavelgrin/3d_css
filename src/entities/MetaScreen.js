@@ -1,4 +1,4 @@
-import { Style } from "./consts"
+import { Style } from "../consts"
 
 export class MetaScreen {
     constructor() {
@@ -22,9 +22,9 @@ export class MetaScreen {
 
     updateCoordinates([x, y, z]) {
         this.coordinatesEl.innerHTML = `
-            X: ${x < 0 ? Math.floor(x) : `&nbsp${Math.floor(x)}`}<br>
-            Y: ${y < 0 ? Math.floor(y) : `&nbsp${Math.floor(y)}`}<br>
-            Z: ${z < 0 ? Math.floor(z) : `&nbsp${Math.floor(z)}`}
+            X:${x < 0 ? Math.floor(x) : `&nbsp${Math.floor(x)}`}<br>
+            Y:${y < 0 ? Math.floor(y) : `&nbsp${Math.floor(y)}`}<br>
+            Z:${z < 0 ? Math.floor(z) : `&nbsp${Math.floor(z)}`}
         `
     }
 
