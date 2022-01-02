@@ -1,11 +1,11 @@
 import { Style, AVERAGE_FPS_COUNT } from "../consts"
-import { transposeMatrix } from "./math"
+import { Matrix } from "./math"
 
 // spawnPoint is needed to bind objects to the center of the view
 const spawnPoint = document.querySelector(`.${Style.SpawnPoint}`)
 
 export const toCssMatrixView = (matrix) => {
-    return transposeMatrix(matrix).join(",")
+    return Matrix.transpose(matrix).join(",")
 }
 
 export const spawnObject = (object) => {

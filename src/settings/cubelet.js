@@ -1,13 +1,13 @@
-import { transform3d, multiplyMatrix } from "../utils/math"
+import { Matrix, Transform3d } from "../utils/math"
 import { toCssMatrixView } from "../utils/render"
 import { CUBE_WIDTH, CubeFace } from "../consts"
 
 const FACE_OFFSET = CUBE_WIDTH / 2
 
 const getFacePosition = (angle, vec) => {
-    const posMatrix = (multiplyMatrix(
-        transform3d.rotate(angle, vec),
-        transform3d.translate([0, 0, FACE_OFFSET]),
+    const posMatrix = (Matrix.multiply(
+        Transform3d.rotate(angle, vec),
+        Transform3d.translate([0, 0, FACE_OFFSET]),
     ))
 
     return toCssMatrixView(posMatrix)

@@ -1,4 +1,4 @@
-import { transform3d, multiplyMatrix } from "../utils/math"
+import { Matrix, Transform3d } from "../utils/math"
 import { toCssMatrixView } from "../utils/render"
 
 import {
@@ -10,11 +10,11 @@ import {
 
 const INIT_CUBELET_OFFSET = MAGIC_CUBE_WIDTH / 2 - CUBE_WIDTH / 2
 
-const initOffsetMatrix = transform3d.translate([INIT_CUBELET_OFFSET, -INIT_CUBELET_OFFSET, 0])
+const initOffsetMatrix = Transform3d.translate([INIT_CUBELET_OFFSET, -INIT_CUBELET_OFFSET, 0])
 
 const getPiecePos = (vec) => {
-    const posMatrix = (multiplyMatrix(
-        transform3d.translate(vec),
+    const posMatrix = (Matrix.multiply(
+        Transform3d.translate(vec),
         initOffsetMatrix,
     ))
 
