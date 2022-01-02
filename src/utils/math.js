@@ -92,29 +92,24 @@ export class Transform3d {
     }
 
     static lookAt(cameraPos, vecTarget, vecUp) {
-        const cameraDirection = Vector.normalize(Vector.subtract(cameraPos, vecTarget))
-        const rightCameraVec = Vector.normalize(Vector.cross(vecUp, cameraDirection))
-        const upCameraVec = Vector.normalize(Vector.cross(cameraDirection, rightCameraVec))
-
-        const [Rx, Ry, Rz] = rightCameraVec
-        const [Ux, Uy, Uz] = upCameraVec
-        const [Dx, Dy, Dz] = cameraDirection
-
+        const [Dx, Dy, Dz] = Vector.normalize(Vector.subtract(cameraPos, vecTarget))
+        const [Rx, Ry, Rz] = Vector.normalize(Vector.cross(vecUp, [Dx, -Dy, Dz]))
+        const [Ux, Uy, Uz] = Vector.normalize(Vector.cross([Dx, -Dy, Dz], [Rx, -Ry, Rz]))
         const [Px, Py, Pz] = cameraPos
 
         return Matrix.multiply(
             [
-                [Rx, Ry, Rz, 0],
-                [Ux, Uy, Uz, 0],
-                [Dx, Dy, Dz, 0],
-                [ 0,  0,  0, 1],
+                [Rx,  Ry, Rz, 0],
+                [Ux, -Uy, Uz, 0],
+                [Dx,  Dy, Dz, 0],
+                [ 0,   0,  0, 1],
             ],
             [
                 [1, 0, 0, -Px],
                 [0, 1, 0, -Py],
                 [0, 0, 1, -Pz],
                 [0, 0, 0,   1],
-            ]
+            ],
         )
     }
 
@@ -132,7 +127,7 @@ export class Transform3d {
     static translate([x, y, z]) {
         return [
             [1, 0, 0,  x],
-            [0, 1, 0, -y],
+            [0, 1, 0,  y],
             [0, 0, 1,  z],
             [0, 0, 0,  1],
         ]
@@ -153,8 +148,7 @@ export class Transform3d {
         const s = Math.sin(rad)
         const c = Math.cos(rad)
 
-        const [x, invY, z] = Vector.normalize(vec)
-        const y = -invY
+        const [x, y, z] = Vector.normalize(vec)
 
         return [
             [   c+(1-c)*x*x, -s*z+(1-c)*x*y,  s*y+(1-c)*x*z, 0],

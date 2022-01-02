@@ -10,7 +10,7 @@ import {
 
 const INIT_CUBELET_OFFSET = MAGIC_CUBE_WIDTH / 2 - CUBE_WIDTH / 2
 
-const initOffsetMatrix = Transform3d.translate([INIT_CUBELET_OFFSET, -INIT_CUBELET_OFFSET, 0])
+const initOffsetMatrix = Transform3d.translate([INIT_CUBELET_OFFSET, INIT_CUBELET_OFFSET, 0])
 
 const getPiecePos = (vec) => {
     const posMatrix = (Matrix.multiply(
@@ -36,11 +36,11 @@ const centerPieces = [
     },
     {
         colors: { [CubeFace.Left]: ColorMapping[CubeFace.Left] },
-        pos: getPiecePos([CUBE_WIDTH, 0, 0]),
+        pos: getPiecePos([-CUBE_WIDTH, 0, 0]),
     },
     {
         colors: { [CubeFace.Right]: ColorMapping[CubeFace.Right] }, 
-        pos: getPiecePos([-CUBE_WIDTH, 0, 0]),
+        pos: getPiecePos([CUBE_WIDTH, 0, 0]),
     },
     {
         colors: { [CubeFace.Back]: ColorMapping[CubeFace.Back] }, 
@@ -61,7 +61,7 @@ const edgePieces = [
             [CubeFace.Front]: ColorMapping[CubeFace.Front],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, 0, CUBE_WIDTH]),
+        pos: getPiecePos([CUBE_WIDTH, 0, CUBE_WIDTH]),
     },
     {
         colors: {
@@ -75,7 +75,7 @@ const edgePieces = [
             [CubeFace.Front]: ColorMapping[CubeFace.Front],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, 0, CUBE_WIDTH]),
+        pos: getPiecePos([-CUBE_WIDTH, 0, CUBE_WIDTH]),
     },
     {
         colors: {
@@ -89,7 +89,7 @@ const edgePieces = [
             [CubeFace.Back]: ColorMapping[CubeFace.Back],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, 0, -CUBE_WIDTH]),
+        pos: getPiecePos([CUBE_WIDTH, 0, -CUBE_WIDTH]),
     },
     {
         colors: {
@@ -103,35 +103,35 @@ const edgePieces = [
             [CubeFace.Back]: ColorMapping[CubeFace.Back],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, 0, -CUBE_WIDTH]),
+        pos: getPiecePos([-CUBE_WIDTH, 0, -CUBE_WIDTH]),
     },
     {
         colors: {
             [CubeFace.Top]: ColorMapping[CubeFace.Top],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
-        }, 
-        pos: getPiecePos([-CUBE_WIDTH, CUBE_WIDTH, 0]),
-    },
-    {
-        colors: {
-            [CubeFace.Top]: ColorMapping[CubeFace.Top],
-            [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
         pos: getPiecePos([CUBE_WIDTH, CUBE_WIDTH, 0]),
     },
     {
         colors: {
+            [CubeFace.Top]: ColorMapping[CubeFace.Top],
+            [CubeFace.Left]: ColorMapping[CubeFace.Left],
+        }, 
+        pos: getPiecePos([-CUBE_WIDTH, CUBE_WIDTH, 0]),
+    },
+    {
+        colors: {
             [CubeFace.Bottom]: ColorMapping[CubeFace.Bottom],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, -CUBE_WIDTH, 0]),
+        pos: getPiecePos([CUBE_WIDTH, -CUBE_WIDTH, 0]),
     },
     {
         colors: {
             [CubeFace.Bottom]: ColorMapping[CubeFace.Bottom],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, -CUBE_WIDTH, 0]),
+        pos: getPiecePos([-CUBE_WIDTH, -CUBE_WIDTH, 0]),
     },
 ]
 
@@ -142,7 +142,7 @@ const cornerPieces = [
             [CubeFace.Top]: ColorMapping[CubeFace.Top],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, CUBE_WIDTH, CUBE_WIDTH]),
+        pos: getPiecePos([-CUBE_WIDTH, CUBE_WIDTH, CUBE_WIDTH]),
     },
     {
         colors: {
@@ -150,7 +150,7 @@ const cornerPieces = [
             [CubeFace.Top]: ColorMapping[CubeFace.Top],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, CUBE_WIDTH, CUBE_WIDTH]),
+        pos: getPiecePos([CUBE_WIDTH, CUBE_WIDTH, CUBE_WIDTH]),
     },
     {
         colors: {
@@ -158,7 +158,7 @@ const cornerPieces = [
             [CubeFace.Bottom]: ColorMapping[CubeFace.Bottom],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, -CUBE_WIDTH, CUBE_WIDTH]),
+        pos: getPiecePos([-CUBE_WIDTH, -CUBE_WIDTH, CUBE_WIDTH]),
     },
     {
         colors: {
@@ -166,7 +166,7 @@ const cornerPieces = [
             [CubeFace.Bottom]: ColorMapping[CubeFace.Bottom],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, -CUBE_WIDTH, CUBE_WIDTH]),
+        pos: getPiecePos([CUBE_WIDTH, -CUBE_WIDTH, CUBE_WIDTH]),
     },
 
     {
@@ -175,7 +175,7 @@ const cornerPieces = [
             [CubeFace.Top]: ColorMapping[CubeFace.Top],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, CUBE_WIDTH, -CUBE_WIDTH]),
+        pos: getPiecePos([-CUBE_WIDTH, CUBE_WIDTH, -CUBE_WIDTH]),
     },
     {
         colors: {
@@ -183,7 +183,7 @@ const cornerPieces = [
             [CubeFace.Top]: ColorMapping[CubeFace.Top],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, CUBE_WIDTH, -CUBE_WIDTH]),
+        pos: getPiecePos([CUBE_WIDTH, CUBE_WIDTH, -CUBE_WIDTH]),
     },
     {
         colors: {
@@ -191,7 +191,7 @@ const cornerPieces = [
             [CubeFace.Bottom]: ColorMapping[CubeFace.Bottom],
             [CubeFace.Left]: ColorMapping[CubeFace.Left],
         }, 
-        pos: getPiecePos([CUBE_WIDTH, -CUBE_WIDTH, -CUBE_WIDTH]),
+        pos: getPiecePos([-CUBE_WIDTH, -CUBE_WIDTH, -CUBE_WIDTH]),
     },
     {
         colors: {
@@ -199,7 +199,7 @@ const cornerPieces = [
             [CubeFace.Bottom]: ColorMapping[CubeFace.Bottom],
             [CubeFace.Right]: ColorMapping[CubeFace.Right],
         }, 
-        pos: getPiecePos([-CUBE_WIDTH, -CUBE_WIDTH, -CUBE_WIDTH]),
+        pos: getPiecePos([CUBE_WIDTH, -CUBE_WIDTH, -CUBE_WIDTH]),
     },
 ]
 

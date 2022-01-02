@@ -26,7 +26,7 @@ export class Camera {
 
     updateCameraDirection() {
         const frontX = Math.cos(toRadians(this.yaw)) * Math.cos(toRadians(this.pitch))
-        const frontY = Math.sin(toRadians(this.pitch * -1))
+        const frontY = Math.sin(toRadians(this.pitch))
         const frontZ = Math.sin(toRadians(this.yaw)) * Math.cos(toRadians(this.pitch))
 
         this.direction = Vector.normalize([frontX, frontY, frontZ])
