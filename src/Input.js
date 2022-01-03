@@ -29,7 +29,7 @@ export class Input {
         document.addEventListener("mousedown", (event) => {
             this.keysState[event.button] = true
         })
-        
+
         document.addEventListener("mouseup", (event) => {
             this.keysState[event.button] = false
         })

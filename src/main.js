@@ -41,11 +41,14 @@ const processInput = (camera, frameTime) => {
     const mouseMovement = input.getMouseMove()
 
     if (!input.isPressed([ControlKeys.RightMouse])) {
-        rootElement.style.cursor = "auto"
+        document.exitPointerLock()
         return
     }
 
-    rootElement.style.cursor = "none"
+    if (!document.pointerLockElement) {
+        rootElement.requestPointerLock()
+        return
+    }
 
     const cameraSpeed = frameTime * KEYBOARD_SENSITIVITY
 
