@@ -12,6 +12,10 @@ export const Style = Object.freeze({
     Underlay: "cubeFaceUnderlay",
     CubeFace: "cubeFace",
     Meta: "meta",
+    ControlHint: "controlHint",
+    HintMouse: "hintMouse",
+    HintPlus: "hintPlus",
+    HintItem: "hintItem",
     Coordinates: "coordinates",
     Fps: "fps",
 })

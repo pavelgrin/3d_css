@@ -38,21 +38,60 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;
 }
 
+.controlHint,
 .coordinates,
 .fps {
     position: absolute;
-    bottom: 0;
-    left: 0;
     font-size: 16rem;
     color: #fff;
 }
 
+.controlHint {
+    display: flex;
+    top: 5rem;
+    left: 5rem;
+}
+
+.coordinates {
+    bottom: 5rem;
+    left: 5rem;
+}
+
 .fps {
-    left: auto;
-    right: 0;
+    right: 5rem;
+    bottom: 5rem;
+}
+
+.hintMouse,
+.hintItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+    height: 30rem;
+    margin-right: 5rem;
+    border-radius: 20%;
+}
+
+.hintItem {
+    font-weight: 700;
+    color: #000;
+    background-color: #fff;
+}
+
+.hintPlus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    margin-right: 5rem;
+}
+
+.hintMouse {
+    background: url("./right_mouse.png") center -4rem / contain no-repeat;
+    background-color: #fff;
 }
 
 .cubeFaceUnderlay {
