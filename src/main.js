@@ -1,12 +1,19 @@
 import { Matrix, Transform3d, getPerspectiveDistance } from "./utils/math"
 import { spawnObject, transformObject, getFrameTime, getFps } from "./utils/render"
 
-import { Style, ControlKeys, KEYBOARD_SENSITIVITY, MOUSE_SENSITIVITY } from "./consts"
+import {
+    Style,
+    ControlKeys,
+    ColorMapping,
+    KEYBOARD_SENSITIVITY,
+    MOUSE_SENSITIVITY,
+    CUBE_WIDTH,
+} from "./consts"
 
 import { Camera } from "./Camera"
 import { Input } from "./Input"
 
-import { MagicCube } from "./entities/MagicCube"
+import { Cubelet } from "./entities/Cubelet"
 import { MetaScreen  } from "./entities/MetaScreen"
 
 const rootElement = document.querySelector(`.${Style.Root}`)
@@ -18,24 +25,37 @@ const input = new Input()
 
 const metaScreen = spawnObject(new MetaScreen())
 
-const magicCube1 = spawnObject(new MagicCube())
-const magicCube2 = spawnObject(new MagicCube())
-const magicCube3 = spawnObject(new MagicCube())
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min)
+}  
 
-const cube1Model = Matrix.multiply(
-    Transform3d.translate([300, 0, 0]),
-    Transform3d.rotate(45, [1, 1, 0]),
-)
+const generateObjects = () => {
+    const quantity = 50
+    const objects = []
 
-const cube2Model = Matrix.multiply(
-    Transform3d.translate([-300, 0, 0]),
-    Transform3d.rotate(45, [1, 0, 1]),
-)
+    for (let i = 0; i < quantity; ++i) {
+        const object = spawnObject(new Cubelet(ColorMapping))
 
-const cube3Model = Matrix.multiply(
-    Transform3d.translate([0, 400, 0]),
-    Transform3d.rotate(45, [0, 1, 1]),
-)
+        objects.push({
+            object,
+            model: Matrix.multiply(
+                Transform3d.translate([
+                    getRandomInt(-quantity, quantity) * CUBE_WIDTH,
+                    getRandomInt(-quantity, quantity) * CUBE_WIDTH,
+                    getRandomInt(-quantity, quantity) * CUBE_WIDTH,
+                ]),
+                Transform3d.rotate(getRandomInt(0, 360),
+                [
+                    getRandomInt(0, 100) / 100,
+                    getRandomInt(0, 100) / 100,
+                    getRandomInt(0, 100) / 100,
+                ]),
+            )
+        })
+    }
+
+    return objects
+}
 
 const processInput = (camera, frameTime) => {
     const mouseMovement = input.getMouseMove()
@@ -80,6 +100,8 @@ const processInput = (camera, frameTime) => {
     camera.move(cameraChanging)
 }
 
+const objects = generateObjects()
+
 const cb = () => {
     const frameTime = getFrameTime()
     const fps = getFps(frameTime)
@@ -88,9 +110,9 @@ const cb = () => {
 
     const view = camera.lookAt()
 
-    transformObject(magicCube1, Matrix.multiply(view, cube1Model))
-    transformObject(magicCube2, Matrix.multiply(view, cube2Model))
-    transformObject(magicCube3, Matrix.multiply(view, cube3Model))
+    objects.forEach(({ object, model }) => {
+        transformObject(object, Matrix.multiply(view, model))
+    })
 
     metaScreen.update({ posVec: camera.position, fps })
     requestAnimationFrame(cb)
