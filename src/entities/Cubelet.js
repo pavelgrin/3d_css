@@ -34,13 +34,13 @@ export class Cubelet {
     createCubeFace(faceColor = "") {
         const underlay = document.createElement("div")
         underlay.classList.add(Style.Underlay)
-    
+
         if (faceColor) {
             const cubeFace = document.createElement("div")
             cubeFace.classList.add(Style.CubeFace)
-    
+
             cubeFace.style.backgroundColor = faceColor
-    
+
             underlay.appendChild(cubeFace)
         }
 

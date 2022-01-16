@@ -13,7 +13,9 @@ export const getPerspectiveDistance = (fovDeg, screenHeight) => {
 
 export class Vector {
     static normalize(vec) {
-        const vecLength = Math.sqrt(vec.reduce((sum, comp) => sum + comp ** 2, 0))
+        const vecLength = Math.sqrt(
+            vec.reduce((sum, comp) => sum + comp ** 2, 0)
+        )
         return vec.map((comp) => comp / vecLength)
     }
 
@@ -46,38 +48,36 @@ export class Matrix {
         const rowLength = matrix.length
         const colLength = matrix[0].length
         const length = Math.max(rowLength, colLength)
-    
+
         for (let row = 0; row < length; ++row) {
             for (let col = row; col < length; ++col) {
                 if (!transposedMatrix[row]) {
                     transposedMatrix[row] = []
                 }
-    
+
                 if (!transposedMatrix[col]) {
                     transposedMatrix[col] = []
                 }
-    
+
                 if (matrix[col]) {
                     transposedMatrix[row][col] = matrix[col][row]
                 }
-    
+
                 if (matrix[row]) {
                     transposedMatrix[col][row] = matrix[row][col]
                 }
             }
         }
-    
+
         return transposedMatrix
     }
 
     static multiply(m1, m2) {
-        return m1.map((row, i) => (
-            m2[0].map((_, j) => (
-                row.reduce((acc, _, n) => (
-                    acc + m1[i][n] * m2[n][j]
-                ), 0)
-            ))
-        )) 
+        return m1.map((row, i) =>
+            m2[0].map((_, j) =>
+                row.reduce((acc, _, n) => acc + m1[i][n] * m2[n][j], 0)
+            )
+        )
     }
 }
 
@@ -92,11 +92,18 @@ export class Transform3d {
     }
 
     static lookAt(cameraPos, vecTarget, vecUp) {
-        const [Dx, Dy, Dz] = Vector.normalize(Vector.subtract(cameraPos, vecTarget))
-        const [Rx, Ry, Rz] = Vector.normalize(Vector.cross(vecUp, [Dx, -Dy, Dz]))
-        const [Ux, Uy, Uz] = Vector.normalize(Vector.cross([Dx, -Dy, Dz], [Rx, -Ry, Rz]))
+        const [Dx, Dy, Dz] = Vector.normalize(
+            Vector.subtract(cameraPos, vecTarget)
+        )
+        const [Rx, Ry, Rz] = Vector.normalize(
+            Vector.cross(vecUp, [Dx, -Dy, Dz])
+        )
+        const [Ux, Uy, Uz] = Vector.normalize(
+            Vector.cross([Dx, -Dy, Dz], [Rx, -Ry, Rz])
+        )
         const [Px, Py, Pz] = cameraPos
 
+        /* prettier-ignore */
         return Matrix.multiply(
             [
                 [Rx,  Ry, Rz, 0],
@@ -116,6 +123,7 @@ export class Transform3d {
     static perspective(fovDeg, screenHeight) {
         const d = getPerspectiveDistance(fovDeg, screenHeight)
 
+        /* prettier-ignore */
         return [
             [1, 0,    0, 0],
             [0, 1,    0, 0],
@@ -126,10 +134,10 @@ export class Transform3d {
 
     static translate([x, y, z]) {
         return [
-            [1, 0, 0,  x],
-            [0, 1, 0,  y],
-            [0, 0, 1,  z],
-            [0, 0, 0,  1],
+            [1, 0, 0, x],
+            [0, 1, 0, y],
+            [0, 0, 1, z],
+            [0, 0, 0, 1],
         ]
     }
 
@@ -150,6 +158,7 @@ export class Transform3d {
 
         const [x, y, z] = Vector.normalize(vec)
 
+        /* prettier-ignore */
         return [
             [   c+(1-c)*x*x, -s*z+(1-c)*x*y,  s*y+(1-c)*x*z, 0],
             [ s*z+(1-c)*x*y,    c+(1-c)*y*y, -s*x+(1-c)*y*z, 0],
@@ -164,6 +173,7 @@ export class Transform3d {
         const s = Math.sin(rad)
         const c = Math.cos(rad)
 
+        /* prettier-ignore */
         return [
             [1, 0, 0, 0],
             [0, c,-s, 0],
@@ -178,6 +188,7 @@ export class Transform3d {
         const s = Math.sin(rad)
         const c = Math.cos(rad)
 
+        /* prettier-ignore */
         return [
             [c, 0,-s, 0],
             [0, 1, 0, 0],
@@ -192,6 +203,7 @@ export class Transform3d {
         const s = Math.sin(rad)
         const c = Math.cos(rad)
 
+        /* prettier-ignore */
         return [
             [c,-s, 0, 0],
             [s, c, 0, 0],

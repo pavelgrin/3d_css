@@ -26,7 +26,7 @@ export class MagicCube {
 
     generateCubeletElements() {
         return MagicCubeSettings.map((cube) => ({
-            element: (new Cubelet(cube.colors)).element,
+            element: new Cubelet(cube.colors).element,
             pos: cube.pos,
         }))
     }

@@ -17,7 +17,9 @@ export const spawnObject = (object) => {
 }
 
 export const transformObject = (object, matrix) => {
-    object.element.style.transform = `translate(-50%, -50%) matrix3d(${toCssMatrixView(matrix)})`
+    object.element.style.transform = `translate(-50%, -50%) matrix3d(${toCssMatrixView(
+        matrix
+    )})`
     return object
 }
 

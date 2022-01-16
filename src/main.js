@@ -1,5 +1,10 @@
 import { Matrix, Transform3d, getPerspectiveDistance } from "./utils/math"
-import { spawnObject, transformObject, getFrameTime, getFps } from "./utils/render"
+import {
+    spawnObject,
+    transformObject,
+    getFrameTime,
+    getFps,
+} from "./utils/render"
 
 import {
     Style,
@@ -14,7 +19,7 @@ import { Camera } from "./Camera"
 import { Input } from "./Input"
 
 import { Cubelet } from "./entities/Cubelet"
-import { MetaScreen  } from "./entities/MetaScreen"
+import { MetaScreen } from "./entities/MetaScreen"
 
 const rootElement = document.querySelector(`.${Style.Root}`)
 const screenHeight = rootElement.offsetHeight
@@ -27,7 +32,7 @@ const metaScreen = spawnObject(new MetaScreen())
 
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min)
-}  
+}
 
 const generateObjects = () => {
     const quantity = 50
@@ -44,13 +49,12 @@ const generateObjects = () => {
                     getRandomInt(-quantity, quantity) * CUBE_WIDTH,
                     getRandomInt(-quantity, quantity) * CUBE_WIDTH,
                 ]),
-                Transform3d.rotate(getRandomInt(0, 360),
-                [
+                Transform3d.rotate(getRandomInt(0, 360), [
                     getRandomInt(0, 100) / 100,
                     getRandomInt(0, 100) / 100,
                     getRandomInt(0, 100) / 100,
-                ]),
-            )
+                ])
+            ),
         })
     }
 

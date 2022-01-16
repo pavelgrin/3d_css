@@ -25,9 +25,11 @@ export class Camera {
     }
 
     updateCameraDirection() {
-        const frontX = Math.cos(toRadians(this.yaw)) * Math.cos(toRadians(this.pitch))
+        const frontX =
+            Math.cos(toRadians(this.yaw)) * Math.cos(toRadians(this.pitch))
         const frontY = Math.sin(toRadians(this.pitch))
-        const frontZ = Math.sin(toRadians(this.yaw)) * Math.cos(toRadians(this.pitch))
+        const frontZ =
+            Math.sin(toRadians(this.yaw)) * Math.cos(toRadians(this.pitch))
 
         this.direction = Vector.normalize([frontX, frontY, frontZ])
     }
@@ -36,11 +38,16 @@ export class Camera {
         const lateralOffset = right - left
         const longitudinalOffset = forward - back
 
-        const lateralDirection = Vector.normalize(Vector.cross(this.direction, this.up))
+        const lateralDirection = Vector.normalize(
+            Vector.cross(this.direction, this.up)
+        )
         const longitudinalDirection = this.direction
 
         const lateralOffsetVec = Vector.dot(lateralDirection, lateralOffset)
-        const longitudinalOffsetVec = Vector.dot(longitudinalDirection, longitudinalOffset)
+        const longitudinalOffsetVec = Vector.dot(
+            longitudinalDirection,
+            longitudinalOffset
+        )
 
         const offsetVec = Vector.add(lateralOffsetVec, longitudinalOffsetVec)
 

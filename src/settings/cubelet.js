@@ -5,10 +5,10 @@ import { CUBE_WIDTH, CubeFace } from "../consts"
 const FACE_OFFSET = CUBE_WIDTH / 2
 
 const getFacePosition = (angle, vec) => {
-    const posMatrix = (Matrix.multiply(
+    const posMatrix = Matrix.multiply(
         Transform3d.rotate(angle, vec),
-        Transform3d.translate([0, 0, FACE_OFFSET]),
-    ))
+        Transform3d.translate([0, 0, FACE_OFFSET])
+    )
 
     return toCssMatrixView(posMatrix)
 }
